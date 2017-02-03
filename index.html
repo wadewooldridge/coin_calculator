@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coin Calculator</title>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css">
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
+
+    <link href="style.css" rel="stylesheet">
+    <script src="coin_interface.js"></script>
+    <script src="coin_calculator.js"></script>
+</head>
+<body class="container">
+<div class="row">
+    <div ng-app="coinApp" ng-controller="coinController as cc" id="overall" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div id="title-div">
+            <h3>COIN COUNTER</h3>
+        </div>
+        <div id="coins-div">
+            <div ng-repeat="denomination in cc.denominations" class="coin-div">
+                <div class="coin-circle">
+                    <input type="number" ng-model="denomination" class="coin-input">
+                </div>
+                <div class="quantity-circle">
+                    <div ng-show="cc.solved" class="quantity-display">x {{cc.quantities[$index]}}</div>
+                </div>
+            </div>
+        </div>
+        <input type="number" placeholder="total to change" ng-model="cc.totalRequired" id="total-input">
+        <button id="calculate-button" class="btn btn-primary btn-block" ng-click="cc.onCalculate()">CALCULATE</button>
+    </div>
+</div>
+</body>
+</html>
