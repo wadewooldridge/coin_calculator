@@ -65,3 +65,12 @@ app.controller('coinController', ['$log', function($log) {
     };
 
 }]);
+
+/* Optional self-test on startup. */
+$(document).ready(function() {
+    console.log('Document ready');
+    var result = test_CoinCalculator();
+    if (!result) {
+        console.warn('test_CoinCalculator failed');
+    }
+});
