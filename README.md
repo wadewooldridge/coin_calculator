@@ -32,5 +32,5 @@ would be overkill. An interim amelioration of this could be achieved by doing
 more checks to determine whether the greedy algorithm can be used, and possibly
 adding a check for hacking off a large part of a large total before going
 into the detailed processing.
-
-
+- We could also add some wait indication to help the user understand that the
+program is still working during some of the worst-case calculations.

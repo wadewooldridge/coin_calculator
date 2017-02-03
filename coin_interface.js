@@ -31,7 +31,7 @@ app.controller('coinController', ['$log', function($log) {
 
     // Button handler for "Calculate".
     this.onCalculate = function() {
-        $log.log('onCalculate: ' + this.totalRequired);
+        //$log.log('onCalculate: ' + this.totalRequired);
         this.solved = false;
         this.errorFlag = false;
 
@@ -51,7 +51,7 @@ app.controller('coinController', ['$log', function($log) {
 
     // Change handler for new denomination: clear out any old solution, and destroy any existing coinCalculator.
     this.onNewDenomination = function() {
-        $log.log('onNewDenomination');
+        //$log.log('onNewDenomination');
         this.solved = false;
         this.errorFlag = false;
         this.coinCalculator = undefined;
@@ -59,7 +59,7 @@ app.controller('coinController', ['$log', function($log) {
 
     // Change handler for new total: clear out any old solution.
     this.onNewTotal = function() {
-        $log.log('onNewTotal');
+        //$log.log('onNewTotal');
         this.solved = false;
         this.errorFlag = false;
     };
@@ -68,7 +68,7 @@ app.controller('coinController', ['$log', function($log) {
 
 /* Optional self-test on startup. */
 $(document).ready(function() {
-    console.log('Document ready');
+    //console.log('Document ready');
     var result = test_CoinCalculator();
     if (!result) {
         console.warn('test_CoinCalculator failed');
