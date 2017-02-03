@@ -1,0 +1,89 @@
+/* coin_calculator - style sheet. */
+
+/* General styling. */
+
+* {
+    box-sizing: border-box;
+}
+
+#overall {
+    height: 95vh;
+}
+
+/* Styling for title. */
+h3 {
+    text-align: center;
+}
+
+/* Styling for coin denominations and quantities. */
+#coins-div {
+    width: 100%;
+    height: 65vh;
+}
+
+.coin-div {
+    width: 50%;
+    height: 30vh;
+    display: inline-block;
+    position: relative;
+}
+
+.coin-circle {
+    width: 20vh;
+    height: 20vh;
+    border: 1px solid black;
+    background-color: gold;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.coin-circle .coin-input {
+    width: 50%;
+    height: 2em;
+    font-size: 200%;
+    text-align: right;
+    background-color: inherit;
+    position: relative;
+    margin: 7vh 20%;
+    border: none;
+}
+
+.quantity-circle {
+    width: 10vh;
+    height: 10vh;
+    border: 1px solid black;
+    background-color: black;
+    border-radius: 100%;
+    position: absolute;
+    top: 3vh;
+    right: 15%;
+}
+
+.quantity-circle .quantity-display {
+    width: 50%;
+    height: 1.5em;
+    font-size: 150%;
+    background-color: inherit;
+    position: relative;
+    margin: 3.5vh 15%;
+    color: white;
+    border: none;
+}
+
+/* Styling for change required input. */
+#total-input {
+    width: 80%;
+    margin-left: 10%;
+    height: 2em;
+    font-size: 200%;
+    text-align: right;
+}
+
+/* Styling for calculate button. */
+#calculate-button {
+    width: 80%;
+    margin-left: 10%;
+}
