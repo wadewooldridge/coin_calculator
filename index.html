@@ -16,14 +16,14 @@
 </head>
 <body class="container">
 <div class="row">
-    <div ng-app="coinApp" ng-controller="coinController as cc" id="overall" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <div id="overall" class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-app="coinApp" ng-controller="coinController as cc">
         <div id="title-div">
             <h3>COIN COUNTER</h3>
         </div>
         <div id="coins-div">
             <div ng-repeat="denomination in cc.denominations track by $index" class="coin-div">
                 <div class="coin-circle">
-                    <input type="text" ng-model="cc.denominations[$index]" ng-change="cc.onNewDenomination()" class="coin-input">
+                    <input type="text" size="3" maxlength="3" ng-model="cc.denominations[$index]" ng-change="cc.onNewDenomination()" class="coin-input">
                 </div>
                 <div ng-show="cc.solved" class="quantity-circle">
                     <div class="quantity-display">x {{cc.quantities[$index]}}</div>
