@@ -6,7 +6,7 @@
 class CoinCalculator {
 
     /**
-     *  constuctor - main constructor for CoinCalculator
+     *  constructor - main constructor for CoinCalculator
      *  @param {[number]}   denominations - Array of denominations.
      */
     constructor(denominations) {
@@ -23,8 +23,8 @@ class CoinCalculator {
         // Make sure we have numeric values.
         for (i = 0; i < this.denominations.length; i++) {
             var n = parseInt(this.denominations[i]);
-            if (isNaN(n) || n <= 0) {
-                throw new TypeError('denominations must contain only valid positive integers');
+            if (isNaN(n) || n <= 0 || n > 999) {
+                throw new TypeError('denominations must contain only valid positive integers 1-999');
             }
             this.denominations[i] = n;
         }
@@ -70,14 +70,58 @@ class CoinCalculator {
         return result;
     }
 
+    /**
+     *  calculateBestQuantities - Calculate quantity of each denomination to get the total.
+     *                            Much less efficient than "greedy" algorithm, but works for all cases.
+     *  @param  {number}    total
+     *  @return {[number]}  quantities of each denomination.
+     */
     calculateBestQuantities(total) {
         console.log('calculateBestQuantities: ' + total);
-        var quantities = [];
-        var remaining = total;
 
-        return [1, 2, 3, 4];
+        // Set up a baseline "to beat", that uses all denomination-1 coins. Keep the quantity array and total coins.
+        var bestQuantitiesSoFar = [0, 0, 0, total];
+        var bestCoinCountSoFar = total;
+
+        // Set up the multiple for-loop to find the solution. dx = denomination, qx = quantity, rx = remainder.
+        var d0 = this.sortedDenominations[0];
+        var d1 = this.sortedDenominations[1];
+        var d2 = this.sortedDenominations[2];
+        var d3 = 1;
+
+        for (var q0 = 0; q0 <= Math.floor(total / d0); q0++) {
+            var r0 = total - (d0 * q0);
+
+            for (var q1 = 0; q1 <= Math.floor(r0 / d1); q1++) {
+                var r1 = r0 - (d1 * q1);
+
+                for (var q2 = 0; q2 <= Math.floor(r1 / d2); q2++) {
+                    var r2 = r1 - (d2 * q2);
+                    var q3 = r2;
+
+                    var coinCount = q0 + q1 + q2 + q3;
+                    if (coinCount < bestCoinCountSoFar) {
+                        bestQuantitiesSoFar = [q0, q1, q2, q3];
+                        bestCoinCountSoFar = coinCount;
+                        console.log('New best: ' + coinCount + ": [" + bestQuantitiesSoFar + ']');
+                    }
+
+                }
+            }
+        }
+
+        // Return the best one we found.
+        return this.backSortQuantities(bestQuantitiesSoFar);
     };
 
+    /**
+     *  calculateGreedyQuantities - Calculate quantity of each denomination to get the total.
+     *                              Uses "greedy" algorithm starting from highest to lowest denomination.
+     *                              Most efficient for regular coinage, but does not work in all cases for
+     *                              other strange denominations.
+     *  @param  {number}    total
+     *  @return {[number]}  quantities of each denomination.
+     */
     calculateGreedyQuantities(total) {
         console.log('calculateGreedyQuantities: ' + total);
         var quantities = [];
@@ -96,28 +140,33 @@ class CoinCalculator {
         return this.backSortQuantities(quantities);
     }
 
+    /**
+     *  calculateQuantities - Calculate quantity of each denomination to get the total.
+     *  @param  {number}    total
+     *  @return {[number]}  quantities of each denomination.
+     */
     calculateQuantities(total) {
         console.log('calculateQuantities: ' + total);
 
         // Check passed parameter.
         total = parseInt(total);
-        if (isNaN(total) || total < 0) {
-            throw TypeError('total must be a valid non-negative integer');
+        if (isNaN(total) || total < 0 || total > 9999) {
+            throw TypeError('total must be a valid non-negative integer 0 to 9999');
         }
 
-        // Todo: find out if there is a good way to determine whether the denominations will work for greedy.
+        // Todo: We could optimize this to always use the greedy calculation if the following conditions are met:
+        // 1. The GCD of the three larger numbers is the third-largest number, and
+        // 2. Each number is greater than the sum of the next two largest numbers.
+
         // Select either greedy or optimal calculations.
-        /*
         if (this.sortedDenominations[0] === 25 &&
             this.sortedDenominations[1] === 10 &&
             this.sortedDenominations[2] ===  5 &&
             this.sortedDenominations[3] ===  1) {
-         */
             return this.calculateGreedyQuantities(total);
-            /*
         } else {
             return this.calculateBestQuantities(total);
-        }  */
+        }
     }
 
 }
@@ -153,6 +202,17 @@ function test_CoinCalculator() {
             denominations:  [25, 10, 6, 1],
             total:          19,
             expected:       [0, 0, 3, 1]
+        },
+        // Non-greedy with operands in other orders.
+        {
+            denominations:  [1, 6, 10, 25],
+            total:          19,
+            expected:       [1, 3, 0, 0]
+        },
+        {
+            denominations:  [6, 1, 25, 10],
+            total:          69,
+            expected:       [3, 1, 2, 0]
         }
     ];
 
