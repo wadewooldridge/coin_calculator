@@ -20,7 +20,17 @@ to it. I added a try/catch block in the interface code to display this error,
 and clear it when the values are modified again.
 - The initial implementation allowed for any order of denominations as
 specified, but limited itself to a "greedy" algorithm working from
-highest-to-lowest denomination.  The full implementation to support all
-possible combanations will require more sophisticated dynamic programming
-logic.
+highest-to-lowest denomination.
+- The second implementation allows for a "greedy" algorithm if the standard
+coinage is used, and a "best fit" algorithm otherwise.  The best fit algorithm
+is a cubic worst-case, so I limited the denominations to three digits (999)
+and the total to four digits (9999).
+- A full implementation would require another pass through to create a 
+dynamic programming solution with memoization for optimization.  If this is
+justified, we can pursue this. If the actual use case is coin changing, that
+would be overkill. An interim amelioration of this could be achieved by doing
+more checks to determine whether the greedy algorithm can be used, and possibly
+adding a check for hacking off a large part of a large total before going
+into the detailed processing.
+
 
