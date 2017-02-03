@@ -70,6 +70,14 @@ class CoinCalculator {
         return result;
     }
 
+    calculateBestQuantities(total) {
+        console.log('calculateBestQuantities: ' + total);
+        var quantities = [];
+        var remaining = total;
+
+        return [1, 2, 3, 4];
+    };
+
     calculateGreedyQuantities(total) {
         console.log('calculateGreedyQuantities: ' + total);
         var quantities = [];
@@ -78,8 +86,8 @@ class CoinCalculator {
         for (var dIndex = 0; dIndex < this.sortedDenominations.length; dIndex++) {
             var denomination = this.sortedDenominations[dIndex];
             var quantity = 0;
-            while (total >= denomination) {
-                total -= denomination;
+            while (remaining >= denomination) {
+                remaining -= denomination;
                 quantity++;
             }
             console.log('d: ' + denomination + ' = ' + quantity);
@@ -97,8 +105,73 @@ class CoinCalculator {
             throw TypeError('total must be a valid non-negative integer');
         }
 
-        // For now, just calculate the greedy quantities.
-        return this.calculateGreedyQuantities(total);
+        // Todo: find out if there is a good way to determine whether the denominations will work for greedy.
+        // Select either greedy or optimal calculations.
+        /*
+        if (this.sortedDenominations[0] === 25 &&
+            this.sortedDenominations[1] === 10 &&
+            this.sortedDenominations[2] ===  5 &&
+            this.sortedDenominations[3] ===  1) {
+         */
+            return this.calculateGreedyQuantities(total);
+            /*
+        } else {
+            return this.calculateBestQuantities(total);
+        }  */
     }
 
 }
+
+/**
+ *  test_CoinCalculator - execute a series of self-tests to make sure the code is working.
+ *  @returns    {boolean}   Success status.
+ */
+function test_CoinCalculator() {
+    console.log('test_CoinCalculator');
+    var testPassed = true;
+
+    var testData = [
+        // Basic test.
+        {
+            denominations:  [25, 10, 5, 1],
+            total:          117,
+            expected:       [4, 1, 1, 2]
+        },
+        // Other order of operands.
+        {
+            denominations:  [1, 5, 10, 25],
+            total:          117,
+            expected:       [2, 1, 1, 4]
+        },
+        {
+            denominations:  [5, 25, 1, 10],
+            total:          117,
+            expected:       [1, 4, 2, 1]
+        },
+        // First test that fails with non-greedy interface.
+        {
+            denominations:  [25, 10, 6, 1],
+            total:          19,
+            expected:       [0, 0, 3, 1]
+        }
+    ];
+
+    for (var testIndex = 0; testIndex < testData.length; testIndex++) {
+        var testObj = testData[testIndex];
+        var expected = testObj.expected;
+        var coinCalculator = new CoinCalculator(testObj.denominations);
+        var result = coinCalculator.calculateQuantities(testObj.total);
+
+        var match = true;
+        for (var i = 0; i < result.length; i++) {
+            if (result[i] !== expected[i]) {
+                console.warn('Index ' + testIndex + ': expected [' + expected + '], result [' + result + ']');
+                testPassed = false;
+                break;
+            }
+        }
+    }
+
+    return testPassed;
+}
+
