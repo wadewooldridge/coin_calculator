@@ -91,6 +91,12 @@ class CoinCalculator {
     calculateQuantities(total) {
         console.log('calculateQuantities: ' + total);
 
+        // Check passed parameter.
+        total = parseInt(total);
+        if (isNaN(total) || total < 0) {
+            throw TypeError('total must be a valid non-negative integer');
+        }
+
         // For now, just calculate the greedy quantities.
         return this.calculateGreedyQuantities(total);
     }
