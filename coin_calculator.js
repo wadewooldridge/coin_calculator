@@ -10,7 +10,7 @@ class CoinCalculator {
      *  @param {[number]}   denominations - Array of denominations.
      */
     constructor(denominations) {
-        console.log('CoinCalculator constructor: ' + denominations);
+        //console.log('CoinCalculator constructor: ' + denominations);
         var i;
 
         // Check basic passed parameters.
@@ -53,7 +53,7 @@ class CoinCalculator {
      *  @returns    {[number]}  quantities that conform to this.denominations.
      */
     backSortQuantities(quantities) {
-        console.log('backSortQuantities: ' + quantities);
+        //console.log('backSortQuantities: ' + quantities);
         var result = [];
         for (var sortedIndex = 0; sortedIndex < this.sortedDenominations.length; sortedIndex++) {
             var denomination = this.sortedDenominations[sortedIndex];
@@ -66,7 +66,7 @@ class CoinCalculator {
             }
         }
 
-        console.log('backSortQuantities result: ' + result);
+        //console.log('backSortQuantities result: ' + result);
         return result;
     }
 
@@ -77,7 +77,7 @@ class CoinCalculator {
      *  @return {[number]}  quantities of each denomination.
      */
     calculateBestQuantities(total) {
-        console.log('calculateBestQuantities: ' + total);
+        //console.log('calculateBestQuantities: ' + total);
 
         // Set up a baseline "to beat", that uses all denomination-1 coins. Keep the quantity array and total coins.
         var bestQuantitiesSoFar = [0, 0, 0, total];
@@ -103,7 +103,7 @@ class CoinCalculator {
                     if (coinCount < bestCoinCountSoFar) {
                         bestQuantitiesSoFar = [q0, q1, q2, q3];
                         bestCoinCountSoFar = coinCount;
-                        console.log('New best: ' + coinCount + ": [" + bestQuantitiesSoFar + ']');
+                        //console.log('New best: ' + coinCount + ": [" + bestQuantitiesSoFar + ']');
                     }
 
                 }
@@ -123,7 +123,7 @@ class CoinCalculator {
      *  @return {[number]}  quantities of each denomination.
      */
     calculateGreedyQuantities(total) {
-        console.log('calculateGreedyQuantities: ' + total);
+        //console.log('calculateGreedyQuantities: ' + total);
         var quantities = [];
         var remaining = total;
 
@@ -134,7 +134,7 @@ class CoinCalculator {
                 remaining -= denomination;
                 quantity++;
             }
-            console.log('d: ' + denomination + ' = ' + quantity);
+            //console.log('d: ' + denomination + ' = ' + quantity);
             quantities.push(quantity);
         }
         return this.backSortQuantities(quantities);
@@ -146,7 +146,7 @@ class CoinCalculator {
      *  @return {[number]}  quantities of each denomination.
      */
     calculateQuantities(total) {
-        console.log('calculateQuantities: ' + total);
+        //console.log('calculateQuantities: ' + total);
 
         // Check passed parameter.
         total = parseInt(total);
@@ -176,7 +176,7 @@ class CoinCalculator {
  *  @returns    {boolean}   Success status.
  */
 function test_CoinCalculator() {
-    console.log('test_CoinCalculator');
+    //console.log('test_CoinCalculator');
     var testPassed = true;
 
     var testData = [
