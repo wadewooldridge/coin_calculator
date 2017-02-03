@@ -14,4 +14,13 @@ the calculations. This is to make that part of the solution reusable.
 that as possibly confusing to the users. That did mean that I had to add logic
 to CoinCalculator to accept the denominations in any order, sort them for 
 internal use, then put the resultant quantities back into the requested order.
+- Error handling was not specified, so I chose to have the CoinCalculator 
+class throw exceptions such as TypeError back for invalid parameters passed
+to it. I added a try/catch block in the interface code to display this error,
+and clear it when the values are modified again.
+- The initial implementation allowed for any order of denominations as
+specified, but limited itself to a "greedy" algorithm working from
+highest-to-lowest denomination.  The full implementation to support all
+possible combanations will require more sophisticated dynamic programming
+logic.
 
