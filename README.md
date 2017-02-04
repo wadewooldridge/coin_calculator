@@ -29,8 +29,15 @@ and the total to four digits (9999).
 dynamic programming solution with memoization for optimization.  If this is
 justified, we can pursue this. If the actual use case is coin changing, that
 would be overkill. An interim amelioration of this could be achieved by doing
-more checks to determine whether the greedy algorithm can be used, and possibly
-adding a check for hacking off a large part of a large total before going
-into the detailed processing.
+more checks to determine whether the greedy algorithm can be used.
 - We could also add some wait indication to help the user understand that the
 program is still working during some of the worst-case calculations.
+- Added an optimization that will cover the worst cases, but calculating the 
+Least Common Multiple of the three non-1 numbers, and assuming that however
+many times this goes into the total, it will use the largest denomination.
+Based on this, I relaxed the total from a max of 9999 to 999999.  However,
+this can cause the worst-case result to sometimes overflow the quantity 
+result circle. I didn't want to modify the sizes of these from the original
+spec, so I made the background color light gray, so the overflow can at least
+be seen.
+

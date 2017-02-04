@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <input type="text" placeholder="total to change" size="4" maxlength="4" ng-model="cc.totalRequired" ng-change="cc.onNewTotal()" id="total-input">
+        <input type="text" placeholder="total to change" size="6" maxlength="6" ng-model="cc.totalRequired" ng-change="cc.onNewTotal()" id="total-input">
         <button id="calculate-button" class="btn btn-primary btn-block" ng-click="cc.onCalculate()">CALCULATE</button>
         <div class="alert alert-danger alert-dismissable fade in" ng-show="cc.errorFlag">
             <br>
