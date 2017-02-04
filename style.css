@@ -8,6 +8,7 @@
 
 #overall {
     height: 95vh;
+    background-color: lightgray;
 }
 
 body {
@@ -71,7 +72,7 @@ h3 {
 .quantity-circle .quantity-display {
     width: 50%;
     height: 1.5em;
-    font-size: 150%;
+    font-size: 125%;
     background-color: inherit;
     position: relative;
     margin: 3vh 20%;

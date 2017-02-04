@@ -89,7 +89,16 @@ class CoinCalculator {
         var d2 = this.sortedDenominations[2];
         var d3 = 1;
 
-        for (var q0 = 0; q0 <= Math.floor(total / d0); q0++) {
+        // Optimization: find the Least Common Multiple of the three non-1 numbers. However many times this can go
+        // into the total, that will be done with the largest denomination.  We could subtract this out and then add
+        // it back at the end, but instead we'll just use it as the starting point for the outer loop.
+
+        var lcm = CoinCalculator.calculateLCM(d0, CoinCalculator.calculateLCM(d1, d2));
+        //console.log('lcm: ' + lcm);
+        var q0Base = Math.floor(total / lcm) * (lcm / d0);
+
+        // Triple loop for finding the best fit.
+        for (var q0 = q0Base; q0 <= Math.floor(total / d0); q0++) {
             var r0 = total - (d0 * q0);
 
             for (var q1 = 0; q1 <= Math.floor(r0 / d1); q1++) {
@@ -150,8 +159,8 @@ class CoinCalculator {
 
         // Check passed parameter.
         total = parseInt(total);
-        if (isNaN(total) || total < 0 || total > 9999) {
-            throw TypeError('total must be a valid non-negative integer 0 to 9999');
+        if (isNaN(total) || total < 0 || total > 999999) {
+            throw TypeError('total must be a valid non-negative integer 0 to 999999');
         }
 
         // Todo: We could optimize this to always use the greedy calculation if the following conditions are met:
@@ -167,6 +176,26 @@ class CoinCalculator {
         } else {
             return this.calculateBestQuantities(total);
         }
+    }
+
+    /**
+     *  calculateGCD - Greatest Common Divisor, Euclid-style.
+     */
+    static calculateGCD(a, b) {
+        var temp;
+        while (b != 0) {
+            temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    /**
+     *  calculateLCM - Least Common Multiple of two numbers.
+     */
+    static calculateLCM(a, b) {
+        return (a * b) / CoinCalculator.calculateGCD(a, b);
     }
 
 }
