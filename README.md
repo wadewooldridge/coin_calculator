@@ -40,4 +40,6 @@ this can cause the worst-case result to sometimes overflow the quantity
 result circle. I didn't want to modify the sizes of these from the original
 spec, so I made the background color light gray, so the overflow can at least
 be seen.
-
+- Per discussion with NCsort, added an optimization to not use "var" to
+declare variables inside the triple-loop, and declare them all beforehand.
+This only made about a 1% improvement, but I left it in.
