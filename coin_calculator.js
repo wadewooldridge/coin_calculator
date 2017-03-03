@@ -98,15 +98,18 @@ class CoinCalculator {
         var q0Base = Math.floor(total / lcm) * (lcm / d0);
 
         // Triple loop for finding the best fit.
-        for (var q0 = q0Base; q0 <= Math.floor(total / d0); q0++) {
-            var r0 = total - (d0 * q0);
+        var q0, q1, q2, q3;     // Quantities.
+        var r0, r1, r2, r3;     // Remainders.
 
-            for (var q1 = 0; q1 <= Math.floor(r0 / d1); q1++) {
-                var r1 = r0 - (d1 * q1);
+        for (q0 = q0Base; q0 <= Math.floor(total / d0); q0++) {
+            r0 = total - (d0 * q0);
 
-                for (var q2 = 0; q2 <= Math.floor(r1 / d2); q2++) {
-                    var r2 = r1 - (d2 * q2);
-                    var q3 = r2;
+            for (q1 = 0; q1 <= Math.floor(r0 / d1); q1++) {
+                r1 = r0 - (d1 * q1);
+
+                for (q2 = 0; q2 <= Math.floor(r1 / d2); q2++) {
+                    r2 = r1 - (d2 * q2);
+                    q3 = r2;
 
                     var coinCount = q0 + q1 + q2 + q3;
                     if (coinCount < bestCoinCountSoFar) {

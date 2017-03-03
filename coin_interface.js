@@ -25,7 +25,7 @@ app.controller('coinController', ['$log', function($log) {
     this.errorFlag = false;
     this.errorMessage = '';
 
-    // Main instance of the CoinCalculator class. This is start as undefined, and will be set back to undefined
+    // Main instance of the CoinCalculator class. This starts as undefined, and will be set back to undefined
     // any time the denominations are changed. If the denominations are not changed, it can be reused.
     this.coinCalculator = undefined;
 
